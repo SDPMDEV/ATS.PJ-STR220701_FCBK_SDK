@@ -212,7 +212,11 @@ class InstagramBusinessAccount
             ];
 
             if (empty($fields)) {
+<<<<<<< HEAD
                 $data['metric'] = 'reach';
+=======
+                $data['metric'] = 'reach,engagement';
+>>>>>>> e1cb8eb577f7b7c7a369c49014d22310c1f17071
                 $data['period'] = 'day';
             }
 
@@ -222,7 +226,11 @@ class InstagramBusinessAccount
                 }
                 $data[$index] = $fields[$index];
             }
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> e1cb8eb577f7b7c7a369c49014d22310c1f17071
             if(empty($medias_id)) {
                 $medias = $this->getMedia();
                 foreach ($medias as $media) {
@@ -246,6 +254,73 @@ class InstagramBusinessAccount
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * @param array $fields
+     * @return mixed
+     * @throws GuzzleException
+     * @throws InstagramException
+     */
+    public function getStories(array $fields = []): mixed
+    {
+        try {
+            if(! empty($fields)) {
+                foreach ($fields as $index => $field) {
+                    if (is_array($field)) {
+                        $fields[$index] = implode(',', $field);
+                    }
+                }
+            }
+
+            $data = [
+                'access_token' => $this->getPageAccessToken(),
+                'fields' => implode(',', $fields)
+            ];
+
+            $client = new Client(['base_uri' => self::FB_BASE_URI]);
+            $response = $client->request('GET', "{$this->getId()}/stories?".http_build_query($data));
+
+            return json_decode($response->getBody());
+        } catch (ClientException $exception) {
+            throw new InstagramException($exception->getResponse()->getBody(), $exception->getCode());
+        }
+    }
+
+    /**
+     * @param string|int $id
+     * @param array $fields
+     * @return mixed
+     * @throws GuzzleException
+     * @throws InstagramException
+     */
+    public function getStoryInsights(string|int $id, array $fields = []): mixed
+    {
+        try {
+            $data = [ 'access_token' => $this->getPageAccessToken() ];
+
+            if(empty($fields)) {
+                $data['metric'] = 'reach';
+                $data['period'] = 'day';
+            }
+
+            foreach ($fields as $index => $field) {
+                if (is_array($field)) {
+                    $fields[$index] = implode(',', $field);
+                }
+                $data[$index] = $fields[$index];
+            }
+
+            $client = new Client(['base_uri' => self::FB_BASE_URI]);
+            $response = $client->request('GET', "$id/insights?".http_build_query($data));
+
+            return json_decode($response->getBody());
+        } catch (ClientException $exception) {
+            throw new InstagramException($exception->getResponse()->getBody(), $exception->getCode());
+        }
+    }
+
+    /**
+>>>>>>> e1cb8eb577f7b7c7a369c49014d22310c1f17071
      * @return string
      */
     public function getPageAccessToken(): string
