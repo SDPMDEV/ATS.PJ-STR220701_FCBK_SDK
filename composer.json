@@ -1,5 +1,5 @@
 {
-    "name": "yzpeedro/php-facebook-sdk",
+    "name": "alliancetechsystem/facebook-sdk",
     "description": "A software development kit for Facebook API",
     "type": "library",
     "require": {
