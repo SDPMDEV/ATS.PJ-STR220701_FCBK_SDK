@@ -342,7 +342,7 @@ class InstagramBusinessAccount
             }
 
             $client = new Client(['base_uri' => self::FB_BASE_URI]);
-            $response = $client->request('GET', "/$this->id/insights?".http_build_query($data));
+            $response = $client->request('GET', "/$this->id/insights?".http_build_query(array_merge($data, $parameters)));
 
             return json_decode($response->getBody());
         } catch (ClientException $exception) {
