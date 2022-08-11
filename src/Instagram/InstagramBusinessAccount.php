@@ -175,12 +175,17 @@ class InstagramBusinessAccount
      * @return array
      * @throws InstagramException
      * @throws GuzzleException
+     * @param array $data
      */
-    public function getMedia(): array
+    public function getMedia(array $fields = []): array
     {
         try {
             $mda = [];
-            $fields = [ 'comments', 'id', 'like_count', 'media_type' ];
+            
+            if(empty($fields)) {
+                $fields = [ 'comments', 'id', 'like_count', 'media_type', 'caption' ];
+            }
+
             $data = [ 'access_token' => $this->getPageAccessToken(), 'fields' => implode(',', $fields) ];
 
             foreach ($this->media->data as $media) {
