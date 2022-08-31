@@ -4,7 +4,7 @@ namespace Meta\FacebookSDK;
 
 class FacebookHelper
 {
-    public function __construct(private string $app_id){}
+    public function __construct(private string $app_id, private string $app_secret){}
 
     public function javascriptSDK(string $language = 'en_US', bool $debugger = true): string
     {
@@ -93,6 +93,24 @@ class FacebookHelper
     public function setAppId(string $app_id): FacebookHelper
     {
         $this->app_id = $app_id;
+        return $this;
+    }
+
+    /**
+     * @return string
+    */
+    public function getAppSecret(): string
+    {
+        return $this->app_secret;
+    }
+
+    /**
+     * @param string $app_secret
+     * @return FacebookHelper
+    */
+    public function setAppSecret(string $app_secret): FacebookHelper
+    {
+        $this->app_secret = $app_secret;
         return $this;
     }
 }
