@@ -73,7 +73,7 @@ class FacebookUser
             $data = [ 'access_token' => $this->getAccessToken() ];
 
             if($fields) {
-               $data['fields'] = implode($fields);
+               $data['fields'] = substr(implode(',', $fields), 0, -1);
             }
 
             $client = new Client(['base_uri' => self::FB_BASE_URI]);
