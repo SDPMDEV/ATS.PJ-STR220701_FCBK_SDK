@@ -67,11 +67,15 @@ class FacebookUser
      * @throws FacebookException
      * @throws GuzzleException
      */
-    function accounts(): mixed
+    function accounts(array $fields = []): mixed
     {
         try {
             $data = [ 'access_token' => $this->getAccessToken() ];
             $client = new Client(['base_uri' => self::FB_BASE_URI]);
+            
+            if($fields) {
+                $data['fields'] = substr(implode(',', $fields), 0, -1);
+            }
 
             $response = $client->request('GET', '/me/accounts?'.http_build_query($data), [
                 'Accept' => 'application/json'
