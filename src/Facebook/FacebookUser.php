@@ -79,7 +79,7 @@ class FacebookUser
             $client = new Client(['base_uri' => self::FB_BASE_URI]);
             
             if($fields) {
-                $data['fields'] = substr(implode(',', $fields), 0, -1);
+                $data['fields'] = implode(",", $fields);
             }
 
             $response = $client->request('GET', '/me/accounts?'.http_build_query($data), [
